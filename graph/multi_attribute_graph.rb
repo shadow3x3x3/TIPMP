@@ -22,7 +22,7 @@ class MultiAttributeGraph
 
   def make_connecting_table
     table = {}
-    nodes.each { |node| table[node] = find_neighbors(node) }
+    @nodes.each { |node| table[node] = find_neighbors(node) }
     table
   end
 
