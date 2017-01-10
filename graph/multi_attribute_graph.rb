@@ -1,4 +1,3 @@
-require_relative '../IO/reader'
 require_relative 'edge'
 
 class MultiAttributeGraph
