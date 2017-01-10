@@ -9,11 +9,11 @@ class Edge
     600 => 9
   }
 
-  def initialize(raw, mm, z=false)
-    @id = raw.shift
-    @src = raw.shift
-    @dst = raw.shift
-    raw_attrs = z ? raw[12..23] : raw[0..11]
+  def initialize(raw, mm, z = false)
+    @id = raw.shift.to_i
+    @src = raw.shift.to_i
+    @dst = raw.shift.to_i
+    raw_attrs = (z ? raw[12..23] : raw[0..11]).map(&:to_f)
     set_dims(raw_attrs, mm)
   end
 
