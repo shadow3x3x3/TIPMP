@@ -2,7 +2,7 @@ require_relative 'edge'
 
 class MultiAttributeGraph
 
-  attr_accessor :edges, :nodes
+  attr_reader :edges, :nodes, :connecting_table, :edges_table
 
   def initialize(raw_nodes, raw_edges, mm, z)
     @nodes = raw_nodes
