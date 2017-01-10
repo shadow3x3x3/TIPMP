@@ -3,7 +3,6 @@ GEM
   specs:
     coderay (1.1.1)
     diff-lcs (1.2.5)
-    graph-reader (0.3.0)
     method_source (0.8.2)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -26,13 +25,13 @@ GEM
     slop (3.6.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES
-  graph-reader
   pry
   rspec
   ruby-skyline-core
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
