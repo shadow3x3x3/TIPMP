@@ -17,6 +17,10 @@ class Edge
     set_dims(raw_attrs, mm)
   end
 
+  def attrs
+    [@width, @length, @mm]
+  end
+
   private
 
   def set_dims(raw_attrs, mm)
