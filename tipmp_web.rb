@@ -27,8 +27,8 @@ post '/SkylinePathResult' do
     z = false
   end
 
-  src = params['source'].to_i
-  dst = params['destination'].to_i
+  src  = params['source'].to_i
+  dst  = params['destination'].to_i
   rain = params['rain'].to_i
 
   dim_multiple = [
@@ -45,10 +45,9 @@ post '/SkylinePathResult' do
     evaluate: false
   )
 
+  # Writer.output_to_txt(@result, sp, src, dst)
   @filename_5   = "top_5_#{src}to#{dst}_result.txt"
   @filename_sum = "sum_best_#{src}to#{dst}_result.txt"
-
-  Writer.output_to_txt(@result, sp, src, dst)
   erb :result
 end
 
