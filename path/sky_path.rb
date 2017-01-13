@@ -98,7 +98,7 @@ class SkyPath
         next_path_attrs = cur_attrs.aggregate(attr_between(cur, n))
         sky_path(n, dst, pass, next_path_attrs) if next_hop?(n, pass, next_path_attrs)
       end
-    rescue Exception => e
+    rescue NoMethodError => e
       puts e.message
       puts "Pass: #{pass}"
     end
