@@ -30,8 +30,6 @@ end
 post '/SkylinePathResult' do
   pp get_params(params)
 
-
-
   case params['z_radio']
   when 'true'
     z = true
