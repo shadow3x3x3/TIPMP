@@ -4,20 +4,20 @@ class MultiAttributeGraph
 
   attr_reader :edges, :nodes, :connecting_table, :edges_table
 
-  def initialize(raw_nodes, raw_edges, mm, z)
+  def initialize(raw_nodes, raw_edges, mm, z, dim_multiple)
     @nodes = raw_nodes
-    initialize_edges(raw_edges, mm, z)
+    initialize_edges(raw_edges, mm, z, dim_multiple)
     @connecting_table = make_connecting_table
     @edges_table      = make_edges_table
   end
 
-  def initialize_edges(raw_edges, mm, z)
+  def initialize_edges(raw_edges, mm, z, dim_multiple)
     @edges = []
-    raw_edges.each { |raw_e| add_edge(raw_e, mm, z) }
+    raw_edges.each { |raw_e| add_edge(raw_e, mm, z, dim_multiple) }
   end
 
-  def add_edge(edge, mm, z)
-    @edges << Edge.new(edge, mm, z)
+  def add_edge(edge, mm, z, dim_multiple)
+    @edges << Edge.new(edge, mm, z, dim_multiple)
   end
 
   def make_connecting_table
