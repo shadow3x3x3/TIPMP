@@ -48,7 +48,7 @@ post '/SkylinePathResult' do
   @filename_5   = "top_5_#{src}to#{dst}_result.txt"
   @filename_sum = "sum_best_#{src}to#{dst}_result.txt"
 
-  Writer.output_to_txt(@result, sp, 9993, 11291)
+  Writer.output_to_txt(@result, sp, src, dst)
   erb :result
 end
 
