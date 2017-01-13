@@ -51,3 +51,7 @@ post '/SkylinePathResult' do
   Writer.output_to_txt(@result, sp, 9993, 11291)
   erb :result
 end
+
+get '/:filename' do |f|
+  send_file "output/#{f}", filename: f, type: 'Application/octet-stream'
+end
