@@ -11,27 +11,42 @@
 <div class="col-md-8 col-md-offset-2">
   <form action="SkylinePathResult" class="form" method="post" role="form">
     <div class="form-group col-md-3">
+      <div class="form-group">
+        <h3>設定資料集</h3>
+        <div class="radio">
+          <label>
+            <input type="radio" name="data_set" id="data_set_1" value="salu" checked>
+            沙鹿地區
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="data_set" id="data_set_2" value="longjing">
+            龍井地區
+          </label>
+        </div>
+      </div>
       <h3>設定起訖點</h3>
       <div class="form-group">
         <label for="source">起點</label>
-        <input type="number" class="form-control" id="source" name="source" min="0" value="9993">
+        <input type="number" class="form-control" id="source" name="source" min="0" value="8490">
       </div>
       <div class="form-group">
         <label for="destination">終點</label>
-        <input type="number" class="form-control" id="destination" name="destination" min="0" value="11291">
+        <input type="number" class="form-control" id="destination" name="destination" min="0" value="8298">
       </div>
       <div class="form-group">
         <label for="z_radio">是否正規化</label>
         <div class="radio">
           <label>
-            <input type="radio" name="z_radio" id="zRadio1" value="true" checked>
-            正規化維度
+            <input type="radio" name="z_radio" id="zRadio2" value="false" checked>
+            普通維度
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="z_radio" id="zRadio2" value="false">
-            普通維度
+            <input type="radio" name="z_radio" id="zRadio1" value="true">
+            正規化維度
           </label>
         </div>
       </div>

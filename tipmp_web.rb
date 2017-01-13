@@ -21,7 +21,6 @@ before do
   @LONGJING_EDGES = longjing_edge_csv.read
 end
 
-
 get '/' do
   @title = '沙鹿地區淹水逃生路線模擬'
 
@@ -30,6 +29,8 @@ end
 
 post '/SkylinePathResult' do
   pp get_params(params)
+
+
 
   case params['z_radio']
   when 'true'
@@ -47,7 +48,13 @@ post '/SkylinePathResult' do
     params['dim_input_2'].to_f,
     params['dim_input_3'].to_f
   ]
-  mag = MultiAttributeGraph.new(@SALU_NODES, @SALU_EDGES, rain, z, dim_multiple)
+
+  case params['data_set']
+  when 'salu'
+    mag = MultiAttributeGraph.new(@SALU_NODES, @SALU_EDGES, rain, z, dim_multiple)
+  when 'longjing'
+    mag = MultiAttributeGraph.new(@LONGJING_NODES, @LONGJING_EDGES, rain, z, dim_multiple)
+  end
   sp = SkyPath.new(mag)
   @result = sp.query_skyline_path(
     src_id: src,
