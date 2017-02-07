@@ -7,4 +7,5 @@ gem 'tilt'
 gem 'pry'
 gem 'ruby-skyline-core'
 gem 'rspec'
+gem 'awesome_print'
 

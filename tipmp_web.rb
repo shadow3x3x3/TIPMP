@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'tilt/erb'
 require 'pry'
+require 'awesome_print'
 
 require_relative 'IO/reader'
 require_relative 'IO/writer'
@@ -28,7 +29,7 @@ get '/' do
 end
 
 post '/SkylinePathResult' do
-  pp get_params(params)
+  ap get_params(params)
 
   case params['z_radio']
   when 'true'
