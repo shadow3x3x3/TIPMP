@@ -19,13 +19,7 @@ class CSVReader
       end
     when 'Intersection'
       CSV.foreach(@file_path) do |row|
-        line = []
-        if row[1] == '1'
-          line << row[0].to_i
-          line << row[2].to_f
-          line << row[3].to_f
-          raw_lines << line
-        end
+        raw_lines << [row[0].to_i, row[2].to_f, row[3].to_f] if row[1] == '1'
       end
     end
     raw_lines
