@@ -1,15 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    awesome_print (1.7.0)
     backports (3.6.8)
     coderay (1.1.1)
     diff-lcs (1.2.5)
+    knnball (0.1.0)
     method_source (0.8.2)
     multi_json (1.12.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    puma (3.7.0)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
@@ -48,7 +51,10 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  awesome_print
+  knnball
   pry
+  puma
   rspec
   ruby-skyline-core
   sinatra
@@ -56,4 +62,4 @@ DEPENDENCIES
   tilt
 
 BUNDLED WITH
-   1.13.7
+   1.14.3
