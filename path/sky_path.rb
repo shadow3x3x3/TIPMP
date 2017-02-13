@@ -38,7 +38,7 @@ class SkyPath
       shorest_path = shorest_path_query(src_id, dst_id)
       raise "Can't find any road between #{src_id} and #{dst_id}" if shorest_path.nil?
       @skyline_path[path_to_sym(shorest_path)] = attrs_in(shorest_path)
-      @shorest_distance = @skyline_path[path_to_sym(shorest_path)].first
+      @shorest_distance = @skyline_path[path_to_sym(shorest_path)][1]
       @limit = @shorest_distance * limit
       sky_path(src_id, dst_id)
     end
