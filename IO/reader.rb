@@ -15,7 +15,7 @@ class CSVReader
       end
     when 'Node'
       CSV.foreach(@file_path) do |row|
-        raw_lines << row[0].to_i
+        raw_lines << row[0].to_i if row[1] != '3'
       end
     when 'Intersection'
       CSV.foreach(@file_path) do |row|

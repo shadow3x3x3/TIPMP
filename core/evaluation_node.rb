@@ -4,8 +4,9 @@ require 'awesome_print'
 require_relative '../IO/reader'
 
 class EvalutaionNode
-  def initialize(ori_path)
-    @k_index = KnnBall.build(format_data(read(ori_path)))
+  def initialize(data_path)
+    @data_path = data_path
+    @k_index = KnnBall.build(format_data(read(data_path)))
   end
 
   def read(path)
@@ -24,14 +25,11 @@ class EvalutaionNode
     @k_index.nearest(query)
   end
 
-  def clac_all
+  def clac_all(type)
     result = {}
+    query_data_raw = CSVReader.new(@data_path, type).read
 
-    query_data_path = 'data/nearest_data/query_nodes.csv'
-    query_data_raw = CSVReader.new(query_data_path, 'Center Node').read
-    query_data = format_data(query_data_raw)
-
-    query_data.each do |node|
+    format_data(query_data_raw).each do |node|
       result[node[:id]] = nearest(node[:point])[:id]
     end
     result
