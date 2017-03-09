@@ -8,9 +8,15 @@ require_relative 'IO/reader'
 require_relative 'IO/writer'
 require_relative 'graph/multi_attribute_graph'
 require_relative 'path/sky_path'
+require_relative 'core/evaluation_node'
 
 
 before do
+  # for preprocess reading
+  en = EvalutaionNode.new('data/nearest_data/salu_nodes_xy.csv')
+  @center_nodes = en.clac_all
+
+  # for Skyline path reading
   salu_node_csv = CSVReader.new('data/salu_nodes.csv', 'Node')
   salu_edge_csv = CSVReader.new('data/salu_edges.csv', 'Edge')
   @SALU_NODES = salu_node_csv.read
@@ -38,7 +44,11 @@ post '/SkylinePathResult' do
     z = false
   end
 
-  src  = params['source'].to_i
+  src = if @center_nodes[params['source'].to_i]
+          @center_nodes[params['source'].to_i]
+        else
+          params['source'].to_i
+        end
   dst  = params['destination'].to_i
   rain = params['rain'].to_i
 
@@ -59,7 +69,7 @@ post '/SkylinePathResult' do
     src_id: src,
     dst_id: dst,
     limit: 1.3,
-    evaluate: true
+    evaluate: false
   )
 
   Writer.output_to_txt(@result, sp, src, dst)
