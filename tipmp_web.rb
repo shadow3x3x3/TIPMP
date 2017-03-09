@@ -36,7 +36,6 @@ end
 
 post '/SkylinePathResult' do
   ap get_params(params)
-
   case params['z_radio']
   when 'true'
     z = true
@@ -73,6 +72,10 @@ post '/SkylinePathResult' do
   )
 
   Writer.output_to_txt(@result, sp, src, dst)
+  @title = "#{src} to #{dst}計算結果"
+
+  @source       = src
+  @destination  = dst
   @filename_5   = "top_5_#{src}to#{dst}_result.txt"
   @filename_sum = "sum_best_#{src}to#{dst}_result.txt"
   erb :result
