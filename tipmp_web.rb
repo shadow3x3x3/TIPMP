@@ -32,7 +32,7 @@ before do
 end
 
 get '/' do
-  @title = '沙鹿地區淹水逃生路線模擬'
+  @title = '台中地區淹水逃生路線模擬'
 
   erb :index
 end
