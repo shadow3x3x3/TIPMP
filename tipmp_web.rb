@@ -13,11 +13,10 @@ require_relative 'core/nearest_stronghold'
 
 before do
   # for preprocess reading
-  salu_en     = EvalutaionNode.new('data/nearest_data/salu_nodes_xy.csv')
-  # longjing_en = EvalutaionNode.new('data/nearest_data/longjing_nodes_xy.csv')
-
+  salu_en     = EvalutaionNode.new('data/salu_nodes_xy.csv')
+  longjing_en = EvalutaionNode.new('data/longjing_nodes_xy.csv')
   @salu_center_nodes = salu_en.clac_all('Center Node')
-  # @longjing_center_nodes = longjing_en.clac_all
+  @longjing_center_nodes = longjing_en.clac_all('Center Node')
 
   # for Skyline path reading
   salu_node_csv = CSVReader.new('data/salu_nodes.csv', 'Node')
@@ -73,9 +72,11 @@ post '/SkylinePathResult' do
   end
 
   ns = NearestStronghold.new(mag)
-  refuge_node, dst_id = ns.query(params['destination'].to_i, params['data_set'])
+  refuge_node, dst_id = ns.query(src_id, params['data_set'])
 
   sp = SkyPath.new(mag)
+  query_data = { 'src_id' => src_id, 'dst_id' => dst_id, 'limit' => 1.3, 'evaluate' => 1 }
+  ap query_data
   @result = sp.query_skyline_path(
     src_id: src_id,
     dst_id: dst_id,
@@ -84,7 +85,7 @@ post '/SkylinePathResult' do
   )
 
   Writer.output_to_txt(@result, sp, src_id, dst_id)
-  @title = "#{src_id} 到 #{refuge_node}計算結果 - (節點#{src_id} to #{dst_id})"
+  @title = "#{params['source']} 到 #{refuge_node}計算結果 - (節點#{src_id} to #{dst_id})"
 
   @filename_5   = "top_5_#{src_id}to#{dst_id}_result.txt"
   @filename_sum = "sum_best_#{src_id}to#{dst_id}_result.txt"
@@ -100,8 +101,7 @@ end
 def get_params(params)
   {
     :data => params['data_set'],
-    # :src  => params['source'],
-    :dst  => params['destination'],
+    :src  => params['source'],
     :rain => params['rain'],
     :dim1 => params['dim_input_1'],
     :dim2 => params['dim_input_2'],

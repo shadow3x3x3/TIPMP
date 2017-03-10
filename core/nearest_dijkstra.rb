@@ -5,12 +5,10 @@ module NearestDijkstra
     until @vertices.empty?
       nearest_node = check_shortest
       break unless @distances[nearest_node]
-      # return get_path(src_id, dst_id) if dst_id && nearest_node == dst_id
       check_nearest(@graph.find_neighbors(nearest_node), nearest_node)
       nn = get_nn_node
       return nn unless nn.nil?
     end
-    # dst_id ? nil : @distances
   end
 
   def dijkstra_init(src_id)
