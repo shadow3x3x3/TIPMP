@@ -1,27 +1,28 @@
 <style>
   #start {
-    width: 10em;
-    height: 10em;
+    width: 8em;
+    height: 8em;
     font-size: 20px;
-    margin: 30px;
+    margin: 20px;
+    margin-top: 40px;
   }
 </style>
 
 <h1 class="text-center">模擬參數設定</h1>
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-8 col-md-offset-4" id="app">
   <form action="SkylinePathResult" class="form" method="post" role="form">
     <div class="form-group col-md-3">
       <div class="form-group">
         <h3>設定資料集</h3>
         <div class="radio">
           <label>
-            <input type="radio" name="data_set" id="data_set_1" value="salu" checked>
+            <input type="radio" name="data_set" id="data_set_1" value="salu" v-model="dataset">
             沙鹿地區
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="data_set" id="data_set_2" value="longjing">
+            <input type="radio" name="data_set" id="data_set_2" value="longjing" v-model="dataset">
             龍井地區
           </label>
         </div>
@@ -29,19 +30,19 @@
       <h3>設定人口中心點</h3>
       <div class="form-group">
         <label for="source">人口中心點</label>
-        <input type="number" class="form-control" id="source" name="source" min="0" value="106416">
+        <input type="number" class="form-control" id="source" name="source" min="0" v-model="center">
       </div>
       <div class="form-group">
         <label for="z_radio">是否正規化</label>
         <div class="radio">
           <label>
-            <input type="radio" name="z_radio" id="zRadio2" value="false" checked>
+            <input type="radio" name="z_radio" id="zRadio2" value="false" v-model="normalize">
             普通維度
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="z_radio" id="zRadio1" value="true">
+            <input type="radio" name="z_radio" id="zRadio1" value="true" v-model="normalize">
             正規化維度
           </label>
         </div>
@@ -50,49 +51,49 @@
         <label for="z_radio">挑選雨量</label>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain1" value="150" checked>
+            <input type="radio" name="rain" id="rain1" value="150" v-model="rain">
             150mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain2" value="200">
+            <input type="radio" name="rain" id="rain2" value="200" v-model="rain">
             200mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain3" value="250">
+            <input type="radio" name="rain" id="rain3" value="250" v-model="rain">
             250mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain4" value="300">
+            <input type="radio" name="rain" id="rain4" value="300" v-model="rain">
             300mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain5" value="350">
+            <input type="radio" name="rain" id="rain5" value="350" v-model="rain">
             350mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain6" value="400">
+            <input type="radio" name="rain" id="rain6" value="400" v-model="rain">
             400mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain7" value="450">
+            <input type="radio" name="rain" id="rain7" value="450" v-model="rain">
             450mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain8" value="500">
+            <input type="radio" name="rain" id="rain8" value="500" v-model="rain">
             500mm
           </label>
         </div>
@@ -115,25 +116,29 @@
       <h3>條件倍數設定</h3>
       <div class="form-group">
         <label>路寬</label>
-        <input type="number" class="form-control" id="dim_1" name="dim_input_1" min="0" value=1 step="0.000001"/>
+        <input type="number" class="form-control" id="dim_1" name="dim_input_1" min="0" v-model="dim1" step="0.000001"/>
       </div>
       <div class="form-group">
         <label>長度</label>
-        <input type="number" class="form-control" id="dim_2" name="dim_input_2" min="0.000001" value=1 step="0.000001"/>
+        <input type="number" class="form-control" id="dim_2" name="dim_input_2" min="0.000001" v-model="dim2" step="0.000001"/>
       </div>
       <div class="form-group">
         <label>mm</label>
-        <input type="number" class="form-control" id="dim_3" name="dim_input_3" min="0.000001" value=1 step="0.000001"/>
+        <input type="number" class="form-control" id="dim_3" name="dim_input_3" min="0.000001" v-model="dim3" step="0.000001"/>
       </div>
-    </div>
-    <div class="form-group col-md-2">
-      <button type="submit" id="start" class="btn btn-primary" onclick='showloading()'>開始計算</button>
+      <p>{{location}}</p>
+      <p>{{params}}</p>
+      <div class="form-group col-md-2">
+        <button type="submit" id="start" class="btn btn-primary" onclick='showloading()'>開始計算</button>
+      </div>
     </div>
   </form>
 </div>
 
-
+<script type="text/javascript" src="https://unpkg.com/vue@2.2.2"></script>
 <script type="text/javascript">
+
+// jquery
 $('#start').click(function() {
   $.blockUI({
     message: "<h3>計算中，請稍後...<h3>",
@@ -149,4 +154,42 @@ $('#start').click(function() {
     }
   });
 });
+
+// vuejs
+var app = new Vue({
+  el: '#app',
+  data: {
+    dataset: 'salu',
+    center: '106416',
+    normalize: 'false',
+    rain: '150',
+    dim1: '1',
+    dim2: '1',
+    dim3: '1'
+  },
+  computed: {
+    location: function() {
+      var datasetText
+
+      if (this.dataset == 'salu') {
+        datasetText = '沙鹿'
+      } else {
+        datasetText = '龍井'
+      }
+
+      return '位置: ' + datasetText + '地區的' + this.center + '節點上'
+    },
+    params: function() {
+      var normalizeText
+
+      if (this.normalize == false) {
+        normalizeText = '普通維度'
+      } else {
+        normalizeText = '正規化維度'
+      }
+
+      return '參數: ' + '在' + this.rain + 'mm的'+ normalizeText + '下'
+    },
+  }
+})
 </script>
