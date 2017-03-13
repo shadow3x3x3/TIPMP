@@ -99,13 +99,13 @@
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain9" value="550">
+            <input type="radio" name="rain" id="rain9" value="550" v-model="rain">
             550mm
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="rain" id="rain10" value="600">
+            <input type="radio" name="rain" id="rain10" value="600" v-model="rain">
             600mm
           </label>
         </div>
@@ -182,7 +182,7 @@ var app = new Vue({
     params: function() {
       var normalizeText
 
-      if (this.normalize == false) {
+      if (this.normalize == 'false') {
         normalizeText = '普通維度'
       } else {
         normalizeText = '正規化維度'
