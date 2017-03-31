@@ -27,11 +27,32 @@
           </label>
         </div>
       </div>
-      <h3>設定人口中心點</h3>
+      <h3>設定搜尋條件</h3>
       <div class="form-group">
-        <label for="source">人口中心點</label>
-        <input type="number" class="form-control" id="source" name="source" min="0" v-model="center">
+        <label for="query">位置設定</label>
+        <select class="form-control" id="query" v-model="query" name="query">
+          <option value="center">人口中心點</option>
+          <option value="srcDest">起訖點</option>
+        </select>
       </div>
+      <div class="centerQuery" v-if="query === 'center'">
+        <div class="form-group">
+          <label for="source">人口中心點</label>
+          <input type="number" class="form-control" id="center" name="center" min="0" v-model="center">
+        </div>
+      </div>
+
+      <div class="sourceDest" v-if="query === 'srcDest'">
+        <div class="form-group">
+          <label for="source">起點</label>
+          <input type="number" class="form-control" id="source" name="source" min="0" v-model="source">
+        </div>
+        <div class="form-group">
+          <label for="source">終點</label>
+          <input type="number" class="form-control" id="dest" name="dest" min="0" v-model="dest">
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="z_radio">是否正規化</label>
         <div class="radio">
@@ -160,7 +181,10 @@ var app = new Vue({
   el: '#app',
   data: {
     dataset: 'salu',
+    query: 'center',
     center: '106416',
+    source: '8490',
+    dest: '8298',
     normalize: 'false',
     rain: '150',
     dim1: '1',
@@ -177,7 +201,11 @@ var app = new Vue({
         datasetText = '龍井'
       }
 
-      return '位置: ' + datasetText + '地區的' + this.center + '節點上'
+      if (this.query === 'center') {
+        return '位置: ' + datasetText + '地區的' + this.center + '節點上'
+      } else {
+        return '位置: ' + datasetText + '地區的' + this.source + '到' + this.dest
+      }
     },
     params: function() {
       var normalizeText
