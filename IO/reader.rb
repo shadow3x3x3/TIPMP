@@ -1,5 +1,9 @@
 require 'csv'
 
+INTERSECTION_ID = '1'
+REFUGE_ID       = '2'
+CENTER_ID       = '3'
+
 class CSVReader
   def initialize(file_path, type)
     @file_path = file_path
@@ -19,15 +23,15 @@ class CSVReader
       end
     when 'Intersection'
       CSV.foreach(@file_path) do |row|
-        raw_lines << get_nodes_with_xy(row) if row[1] == '1'
+        raw_lines << get_nodes_with_xy(row) if row[1] == INTERSECTION_ID
       end
     when 'Refuge Node'
       CSV.foreach(@file_path) do |row|
-        raw_lines << get_nodes_with_xy(row) if row[1] == '2'
+        raw_lines << get_nodes_with_xy(row) if row[1] == REFUGE_ID
       end
     when 'Center Node'
       CSV.foreach(@file_path) do |row|
-        raw_lines << get_nodes_with_xy(row) if row[1] == '3'
+        raw_lines << get_nodes_with_xy(row) if row[1] == CENTER_ID
       end
     end
     raw_lines
